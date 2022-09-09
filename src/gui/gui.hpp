@@ -9,6 +9,7 @@
 
 #include <chrono>
 #include <string>
+#include <array>
 
 namespace emulator {
 class Emulator;

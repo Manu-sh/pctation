@@ -41,7 +41,7 @@ const auto GUI_TABLE_COLUMN_ROWS_OTHER_COL = IM_COL32(150, 150, 150, 255);
 
 #define SDL_ERROR(msg)                                                      \
   do {                                                                      \
-    LOG_ERROR(msg##": {}", SDL_GetError());                                 \
+    LOG_ERROR(msg, ": {}", SDL_GetError());                                 \
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", msg, m_window); \
     throw std::runtime_error(#msg);                                         \
   } while (0);
@@ -49,10 +49,12 @@ const auto GUI_TABLE_COLUMN_ROWS_OTHER_COL = IM_COL32(150, 150, 150, 255);
 // Use a discrete GPU if available
 extern "C" {
 // http://developer.download.nvidia.com/devzone/devcenter/gamegraphics/files/OptimusRenderingPolicies.pdf
-__declspec(dllexport) uint32_t NvOptimusEnablement = 1;
+//__declspec(dllexport
+  uint32_t NvOptimusEnablement = 1;
 
 // https://gpuopen.com/amdpowerxpressrequesthighperformance/
-__declspec(dllexport) uint32_t AmdPowerXpressRequestHighPerformance = 1;
+//__declspec(dllexport)
+  uint32_t AmdPowerXpressRequestHighPerformance = 1;
 }
 
 namespace gui {
@@ -398,7 +400,7 @@ void Gui::imgui_draw(const emulator::Emulator& emulator) {
         ImGui::Text("View ");
         ImGui::SameLine();
         ImGui::Combo("##screen_view", (s32*)&m_settings->screen_view, items_screen_view,
-                     ARRAYSIZE(items_screen_view));
+                     IM_ARRAYSIZE(items_screen_view));
         m_settings->window_size_changed = (screen_view_old != m_settings->screen_view);
 
         // Screen scale
@@ -407,7 +409,7 @@ void Gui::imgui_draw(const emulator::Emulator& emulator) {
         ImGui::Text("Scale");
         ImGui::SameLine();
         ImGui::Combo("##screen_scale", (s32*)&m_settings->screen_scale, items_screen_scale,
-                     ARRAYSIZE(items_screen_scale));
+                     IM_ARRAYSIZE(items_screen_scale));
         if (!m_settings->window_size_changed)
           m_settings->window_size_changed = (screen_scale_old != m_settings->screen_scale);
 

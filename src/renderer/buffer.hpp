@@ -6,6 +6,7 @@
 
 #include <cstring>
 #include <exception>
+#include <stdexcept>
 
 using namespace gl;
 
@@ -13,7 +14,7 @@ namespace renderer {
 
 template <typename T, u32 Size>
 class PersistentMappedBuffer {
-  static constexpr u32 element_size = sizeof T;
+  static constexpr u32 element_size = sizeof(T);
   static constexpr u32 buffer_size = element_size * Size;
 
  public:

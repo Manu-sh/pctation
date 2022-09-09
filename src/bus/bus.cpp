@@ -42,7 +42,7 @@ u32 Bus::read32(u32 addr) const {
     return m_expansion.read<u32>(addr_rebased);
 
   LOG_ERROR("Unknown 32-bit read at 0x{:08X}", addr);
-  assert(0);
+  //assert(0);
   return 0;
 }
 
@@ -158,7 +158,8 @@ void Bus::write32(u32 addr, u32 val) {
       case 0x20:  // COM_DELAY
         if (val != 0)
           LOG_DEBUG("Unhandled non-0 32-bit write to MEM_CONTROL1: 0x{:08X} at 0x{:08X}", val, addr);
-        return;
+        return;//constexpr auto GAME_PATH = "data/exe/re3.bin";
+
       default:
         LOG_DEBUG("Unhandled 32-bit write to MEM_CONTROL1: 0x{:08X} at 0x{:08X}", val, addr);
         return;
@@ -180,7 +181,7 @@ void Bus::write32(u32 addr, u32 val) {
   }
 
   LOG_ERROR("Unknown 32-bit write of 0x{:08X} at 0x{:08X} ", val, addr);
-  assert(0);
+  //assert(0);
 }
 
 void Bus::write16(u32 addr, u16 val) {

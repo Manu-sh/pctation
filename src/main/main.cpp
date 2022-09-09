@@ -8,9 +8,13 @@
 #include <memory>
 #include <tuple>
 
-constexpr auto NOCASH_BIOS_2_0_PATH = "data/bios/no$psx_bios/NO$PSX_BIOS_2.0_2x.ROM";
-constexpr auto NOCASH_BIOS_1_2_PATH = "data/bios/no$psx_bios/NO$PSX_BIOS_1.2_2x.ROM";
-constexpr auto BIOS_PATH = "data/bios/SCPH1001.BIN";
+//constexpr auto NOCASH_BIOS_2_0_PATH = "data/bios/no$psx_bios/NO$PSX_BIOS_2.0_2x.ROM";
+//constexpr auto NOCASH_BIOS_1_2_PATH = "data/bios/no$psx_bios/NO$PSX_BIOS_1.2_2x.ROM";
+constexpr auto BIOS_PATH = "/home/user/pctation/data/bios/SCPH1001.BIN";
+//constexpr auto GAME_PATH = "data/exe/re3.bin";
+
+
+// tasti: Z, S, G
 
 // Entry point
 s32 main(s32 argc, char** argv) {
@@ -19,7 +23,7 @@ s32 main(s32 argc, char** argv) {
   try {
     logging::init();
 
-    std::string bootstrap_path;
+    std::string bootstrap_path = BIOS_PATH;
     std::string exe_path;
     std::string cdrom_path;  // Either a cue sheet or a raw CD-ROM binary file
 
@@ -37,8 +41,8 @@ s32 main(s32 argc, char** argv) {
     gui.init();
 
     // If no executable was specified in cmd args, show Executable Select screen
-    if (exe_path.empty() && cdrom_path.empty())
-      gui.draw_file_select(gui, exe_path, cdrom_path);
+    //if (exe_path.empty() && cdrom_path.empty())
+      //gui.draw_file_select(gui, exe_path, cdrom_path);
 
     // Init emulator
     auto emulator =

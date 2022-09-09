@@ -10,7 +10,10 @@
 #define LOG_ERROR SPDLOG_ERROR
 #define LOG_CRITICAL SPDLOG_CRITICAL
 
-#define LOG_TODO() LOG_WARN(__FUNCTION__ ": TODO")
+//#define LOG_TODO() LOG_WARN(__FUNCTION__, ": TODO")
+//#define LOG_TODO() LOG_WARN("TODO")
+//#define LOG_TODO()
+#define LOG_TODO() LOG_WARN(__FUNCTION__, ": TODO")
 
 #define LOG_TRACE_CPU(...) SPDLOG_LOGGER_TRACE(logging::g_cpu_logger, __VA_ARGS__)
 #define LOG_TRACE_CPU_NOFMT(msg) logging::g_cpu_logger->trace(msg)

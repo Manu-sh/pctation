@@ -1,5 +1,11 @@
 ### Initial CMake set-up
 cmake_minimum_required(VERSION 3.12.4)
+#SET(CMAKE_CXX_COMPILER clang++)
+
+if(NOT CMAKE_BUILD_TYPE)
+    # set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Debug) # keep assertion() on
+endif()
 
 # Work around a bug with old MSVC
 if(${CMAKE_VERSION} VERSION_LESS 3.14)
@@ -49,6 +55,10 @@ target_compile_definitions(spdlog::spdlog INTERFACE SPDLOG_ACTIVE_LEVEL=SPDLOG_L
                                                     _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 )
 
+
+
+
+
 # GSL
 find_path(GSL_INCLUDE_DIR gsl-lite.hpp)
 if(GSL_INCLUDE_DIR STREQUAL "GSL_INCLUDE_DIR-NOTFOUND")
@@ -88,4 +98,12 @@ add_custom_command(
     TARGET pctation
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/data" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/data"
+)
+
+
+target_compile_options(pctation
+        PRIVATE
+           -Wall -Wextra -Wno-unused-function -pedantic -pipe
+           -fstack-protector-all -fstack-protector-strong
+            #-O3 -ffast-math -funroll-loops -march=native
 )
