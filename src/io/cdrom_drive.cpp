@@ -223,7 +223,19 @@ void CdromDrive::execute_command(u8 cmd) {
       push_response_stat(FirstInt3);
       break;
     }
-    case 0x03:                        // Play
+
+      //   0Dh Setfilter  E file,channel    INT3(stat)
+    /*
+      temporaney workaround to ignore wrong CRC:
+
+      https://psx-spx.consoledev.net/cdromdrive/#cdrom-video-cd-commands
+       Anyways, the relevant part is that the modified sectors have wrong CRCs
+       (which means that the PSX cdrom controller will ignore them, and the
+       GetlocP command will keep returning position data from the previous sector).
+
+       correct response: INT3(track,index,mm,ss,sect,amm,ass,asect)
+    */
+    case 0x11 /*GetlocP*/: case 0x03:                        // Play
       Expects(m_param_fifo.empty());  // we don't handle the parameter
       m_read_sector = m_seek_sector;
 
@@ -362,6 +374,25 @@ void CdromDrive::execute_command(u8 cmd) {
       push_response_stat(SecondInt2);
       break;
     }
+/*
+    case 0x11: {  // CdlGetlocP: https://github.com/mirror/pcsxr/blob/51b2ad7c2bdc83ed6a0f297679233bc4d19de027/libpcsxcore/cdrom.c#L48
+
+
+      /*
+          SetResultSize(8);
+          memcpy(&cdr.Result, &cdr.subq, 8);
+
+          if (!cdr.Play && CheckSBI(cdr.Result+5))
+                  memset(cdr.Result+2, 0, 6);
+          if (!cdr.Play && !cdr.Reading)
+                  cdr.Result[1] = 0; // HACK?
+          break;
+
+
+
+      break;
+    }
+*/
     default: {
       command_error();
       LOG_ERROR_CDROM("Unhandled CDROM command 0x{:02X}", cmd);

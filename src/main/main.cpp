@@ -41,12 +41,11 @@ s32 main(s32 argc, char** argv) {
     gui.init();
 
     // If no executable was specified in cmd args, show Executable Select screen
-    //if (exe_path.empty() && cdrom_path.empty())
-      //gui.draw_file_select(gui, exe_path, cdrom_path);
+    if (exe_path.empty() && cdrom_path.empty())
+      gui.draw_file_select(gui, exe_path, cdrom_path);
 
     // Init emulator
-    auto emulator =
-        std::make_unique<emulator::Emulator>(BIOS_PATH, exe_path, bootstrap_path, cdrom_path);
+    auto emulator = std::make_unique<emulator::Emulator>(BIOS_PATH, exe_path, bootstrap_path, cdrom_path);
 
     // Update window with exe/game title
     if (!cdrom_path.empty())

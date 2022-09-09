@@ -1,3 +1,10 @@
 build*
 .vs
 .vscode
+
+data/bios/*.bin
+data/cdrom/*.bin
+data/cdrom/*.cue
+cmake-build-debug/*
+
+.idea/*

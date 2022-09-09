@@ -118,8 +118,10 @@ u8 Bus::read8(u32 addr) const {
   }
 
   LOG_ERROR("Unknown 8-bit read at 0x{:08X} ", addr);
-  assert(0);
+  //assert(0);
   return 0;
+
+  //return m_dma.read<u8>(addr);
 }
 
 void Bus::write32(u32 addr, u32 val) {

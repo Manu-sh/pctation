@@ -2,7 +2,7 @@ git submodule update --init
 pushd "external/vcpkg"
 VCPKG_DEFAULT_TRIPLET=x64-linux
 
-#./bootstrap-vcpkg.sh
+./bootstrap-vcpkg.sh
 #./vcpkg install fmt spdlog gsl-lite sdl2 imgui glbinding glm
 ./vcpkg install fmt spdlog gsl-lite imgui glbinding glm
 popd
