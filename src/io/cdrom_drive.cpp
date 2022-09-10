@@ -230,29 +230,7 @@ void CdromDrive::execute_command(u8 cmd) {
       const auto file    = util::bcd_to_dec(get_param());
       const auto channel = util::bcd_to_dec(get_param());
       push_response(FirstInt3, { m_stat_code.byte, util::dec_to_bcd(file), util::dec_to_bcd(channel) });
-
       break;
-
-      /*
-      const u8 file = m_param_fifo.back();
-      m_param_fifo.pop_back();
-
-      const u8 channel = m_param_fifo.back();
-      m_param_fifo.pop_back();
-      */
-
-      /*
-
-        const u8 file = m_param_fifo.Peek(0);
-      const u8 channel = m_param_fifo.Peek(1);
-      Log_DebugPrintf("CDROM setfilter command 0x%02X 0x%02X", ZeroExtend32(file), ZeroExtend32(channel));
-      m_xa_filter_file_number = file;
-      m_xa_filter_channel_number = channel;
-      m_xa_current_set = false;
-      SendACKAndStat();
-      EndCommand();
-       */
-
     }
 
     /*
@@ -267,7 +245,7 @@ void CdromDrive::execute_command(u8 cmd) {
 
        https://github.com/stenzek/duckstation/blob/master/src/core/cdrom.cpp#L920
     */
-    case 0x11 /*GetlocP*/: case 0x03:                        // Play
+    case 0x11 /*GetlocP*/: case 0x03: // Play
       Expects(m_param_fifo.empty());  // we don't handle the parameter
       m_read_sector = m_seek_sector;
 
