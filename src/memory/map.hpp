@@ -5,10 +5,10 @@
 namespace memory {
 
 // Memory sizes
-static constexpr u32 BIOS_SIZE = 512 * 1024;      // All BIOS images are 512KB
-static constexpr u32 RAM_SIZE = 2 * 1024 * 1024;  // Main RAM, 2 MB
-static constexpr u32 SCRATCHPAD_SIZE = 1024;      // Scratch pad, 1KB
-static constexpr u32 SPU_SIZE = 0x280;
+static constexpr u32 BIOS_SIZE       = 512  * 1024;      // All BIOS images are 512KB
+static constexpr u32 RAM_SIZE        = 2048 * 1024;  // Main RAM, 2 MB
+static constexpr u32 SCRATCHPAD_SIZE = 1    * 1024;      // Scratch pad, 1KB
+static constexpr u32 SPU_SIZE        = 0x280;
 static constexpr u32 EXPANSION_1_SIZE = 1024 * 1024;
 
 namespace map {

@@ -66,6 +66,14 @@ void Cpu::step(u32 cycles_to_execute) {
     // Decode current instruction
     const Instruction instr(cur_instr);
 
+    // 1006862347 => 3c03800b => LUI, 2, 5, 0
+    // m_pc_current=2148033372
+    // m_pc_next=2148033376
+
+    // 2489564276 => 9463bc74 => LHU, 2, 5, 1
+    // duck address => 0x80086360
+    // addiu, 2, 5, 1
+
     if (instr.opcode() == Opcode::INVALID) {
       LOG_CRITICAL("Invalid instruction {:02X}", cur_instr);
       trigger_exception(ExceptionCause::ReservedInstruction);
@@ -512,8 +520,14 @@ void Cpu::op_swr(const Instruction& i) {
   store32(aligned_addr, val);
 }
 
+// https://www.quora.com/In-MIPS-assembly-what-the-difference-between-lbu-and-lb?share=1
+// 2420303328 & 65535 = 58848
+//  0b1001000001000010_1110010111100000 & 0b00000000_00000000_111111 = 1110010111100000
+// (2420303328 & 0b00000000'00000000'11111111'11111111) >> 0
+// LBU, 2, 5, 1
 void Cpu::op_lbu(const Instruction& i) {
   const address addr = i.imm16_se() + rs(i);
+  //const address addr = i.imm16() + rs(i);
   u8 val;
   load8(addr, val);
   issue_delayed_load(i.rt(), val);

@@ -87,6 +87,12 @@ u16 Bus::read16(u32 addr) const {
 }
 
 u8 Bus::read8(u32 addr) const {
+
+  /*
+   0xFFFFE5E0 aka 4294960608
+   KSEG1: 1024MB
+   */
+
   addr = memory::mask_region(addr);
 
   address addr_rebased;
